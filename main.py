@@ -1,3 +1,5 @@
+from os import stat_result
+
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -71,12 +73,11 @@ async def update_ticket(ticket_id: int, title: Optional[str] = None, description
     # Найти тикет по ID
     for ticket in tickets:
         if ticket["id"] == ticket_id:
-            # Обновить только переданные параметры
             if title:
                 ticket["title"] = title
             if description:
                 ticket["description"] = description
-            return {"message": "Ticket updated successfully", "ticket": ticket}
+            return RedirectResponse("/", status_code=303)
 
     # Если тикет не найден
     raise HTTPException(status_code=404, detail="Ticket not found")
