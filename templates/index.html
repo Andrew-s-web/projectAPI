@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список тикетов</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>Список тикетов</h1>
+    <form method="get" action="/">
+        <input type="text" name="title" placeholder="Фильтр по названию">
+        <button type="submit">Фильтровать</button>
+    </form>
+    <a href="/tickets/new">Добавить тикет</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }}</td>
+                <td>{{ ticket.title }}</td>
+                <td>{{ ticket.description }}</td>
+                <td>
+                    <a href="/tickets/delete/{{ ticket.id }}">Удалить</a>
+                </td>
+                <td>
+                    <a href="/tickets/edit/{{ ticket.id }}">Редактировать</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
