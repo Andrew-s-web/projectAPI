@@ -1,5 +1,3 @@
-from os import stat_result
-
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -23,12 +21,15 @@ ticket_id_counter = 1
 
 # Главная страница: список тикетов с возможностью фильтрации
 @app.get("/")
-async def read_tickets(request: Request, title: Optional[str] = None):
+async def read_tickets(request: Request, title: Optional[str] = None, priority: Optional[str] = None):
     filtered_tickets = (
+
         [ticket for ticket in tickets if title.lower() in ticket["title"].lower()]
         if title
         else tickets
     )
+    if priority:
+        filtered_tickets = [ticket for ticket in tickets if ticket["priority"] == priority]
     return templates.TemplateResponse(
         "index.html", {"request": request, "tickets": filtered_tickets}
     )
@@ -42,10 +43,10 @@ async def new_ticket_form(request: Request):
 
 @app.post("/tickets")
 async def create_ticket(
-    title: str = Form(...), description: str = Form(...)
+    title: str = Form(...), description: str = Form(...), priority: str = Form(...)
 ):
     global ticket_id_counter
-    tickets.append({"id": ticket_id_counter, "title": title, "description": description})
+    tickets.append({"id": ticket_id_counter, "title": title, "description": description, "priority": priority})
     ticket_id_counter += 1
     return RedirectResponse("/", status_code=303)
 
@@ -69,20 +70,27 @@ async def edit_ticket_form(request: Request, ticket_id: int):
 
 
 @app.patch("/tickets/edit/{ticket_id}")
-async def update_ticket(ticket_id: int, title: Optional[str] = None, description: Optional[str] = None):
-    # Найти тикет по ID
+async def update_ticket(
+    ticket_id: int,
+    title: Optional[str] = Form(None),
+    description: Optional[str] = Form(None),
+    priority: Optional[str] = Form(None)
+):
     for ticket in tickets:
         if ticket["id"] == ticket_id:
             if title:
                 ticket["title"] = title
             if description:
                 ticket["description"] = description
+            if priority:
+                ticket["priority"] = priority
             return RedirectResponse("/", status_code=303)
 
-    # Если тикет не найден
     raise HTTPException(status_code=404, detail="Ticket not found")
 
 
+
 @app.post("/tickets/edit/{ticket_id}")
-async def edit_ticket(ticket_id: int, title: str = Form(None), description: str = Form(None)):
-    return await update_ticket(ticket_id, title=title, description=description)
+async def edit_ticket(ticket_id: int, title: str = Form(None), description: str = Form(None), priority: str = Form(None)):
+    return await update_ticket(ticket_id, title=title, description=description, priority=priority)
+
