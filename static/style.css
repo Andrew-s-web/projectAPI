@@ -24,10 +24,18 @@ body {
 .container table {
     width: 100%;
 }
+.container h1 {
+    font-size: 40px;
+ }
+
 table td, th {
     border: 1px dashed #000;
     padding: 10px 15px;
+    font-size: 20px;
+    text-align: center;
+    text-transform: capitalize;
 }
+
 .container > *{
     padding-bottom: 2%;
     margin-bottom: 2%;
@@ -43,6 +51,8 @@ a {
     display: flex;
     justify-items: center;
     justify-content: space-evenly;
+    font-size: 18px;
+    line-height: 25px;
 }
 
 .expander span {
@@ -51,7 +61,6 @@ a {
 
 form input {
     padding: 10px 15px;
-    margin-right: 10px;
     font-size: 16px;
     border: 2px solid grey;
 }
@@ -80,4 +89,38 @@ form button:hover {
     transition: border-radius 0.5s ease-in-out ;
     transition: color 0.7s ease-in-out ;
     transition: background-color 0.7s cubic-bezier(0.25,0.1,0.25,1) ;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    color: #3a3a3a;
+}
+
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-container {
+    gap: 20px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
