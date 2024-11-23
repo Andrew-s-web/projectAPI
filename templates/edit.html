@@ -14,8 +14,17 @@
         <label>Описание:</label>
         <textarea name="description" required>{{ ticket.description }}</textarea>
         <br>
-        <button type="submit">Сохранить</button>
+        <label>Срочность:</label>
+        <select name="priority">
+            <option value="low">Низкая</option>
+            <option value="medium">Средняя</option>
+            <option value="high">Высокая</option>
+        </select>
+        <br>
+        <button type="submit">Сохранить изменения</button>
     </form>
+
+
     <a href="/">Назад к списку</a>
 </body>
 </html>

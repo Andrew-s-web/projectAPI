@@ -13,6 +13,17 @@
             <input type="text" name="title" placeholder="Фильтр по названию">
             <button type="submit">Фильтровать</button>
         </form>
+        <form method="get" action="/">
+            <label>Фильтровать по срочности:</label>
+            <select name="priority">
+                <option value="">Все</option>
+                <option value="low">Низкая</option>
+                <option value="medium">Средняя</option>
+                <option value="high">Высокая</option>
+            </select>
+            <button type="submit">Фильтровать</button>
+        </form>
+
         <a href="/tickets/new">Добавить тикет</a>
         <table>
             <thead>
@@ -20,6 +31,7 @@
                     <th>ID</th>
                     <th>Название</th>
                     <th>Описание</th>
+                    <th>Срочность</th>
                     <th>Действия</th>
                 </tr>
             </thead>
@@ -29,6 +41,7 @@
                     <td>{{ ticket.id }}</td>
                     <td>{{ ticket.title }}</td>
                     <td>{{ ticket.description }}</td>
+                    <td>{{ ticket.priority }}</td>
                     <td class="expander">
                         <a href="/tickets/delete/{{ ticket.id }}">Удалить</a>
                         <span>|</span>

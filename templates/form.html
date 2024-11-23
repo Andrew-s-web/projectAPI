@@ -7,15 +7,23 @@
 </head>
 <body>
     <h1>Добавить тикет</h1>
-    <form method="post" action="/tickets">
-        <label>Название:</label>
-        <input type="text" name="title" required>
-        <br>
-        <label>Описание:</label>
-        <textarea name="description" required></textarea>
-        <br>
-        <button type="submit">Сохранить</button>
-    </form>
+        <form method="post" action="/tickets">
+            <label>Название:</label>
+            <input type="text" name="title" required>
+            <br>
+            <label>Описание:</label>
+            <textarea name="description" required></textarea>
+            <br>
+            <label>Срочность:</label>
+            <select name="priority">
+                <option value="low">Низкая</option>
+                <option value="medium">Средняя</option>
+                <option value="high">Высокая</option>
+            </select>
+            <br>
+            <button type="submit">Создать тикет</button>
+        </form>
+
     <a href="/">Назад к списку</a>
 </body>
 </html>
